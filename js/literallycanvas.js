@@ -1089,7 +1089,7 @@ defineShape('Image', {
     img.src = data.imageSrc;
     return createShape('Image', {
       x: data.x,
-      x: data.y,
+      y: data.y,
       image: img
     });
   }
@@ -1547,10 +1547,19 @@ module.exports = {
 
 
 },{"../core/lineEndCapShapes.coffee":5,"./util":9}],9:[function(_dereq_,module,exports){
-var slice, util,
+var requestAnimationFrame, slice, util,
   __slice = [].slice;
 
 slice = Array.prototype.slice;
+
+requestAnimationFrame = function() {
+  var e;
+  try {
+    return (window.requestAnimationFrame || window.setTimeout).bind(window);
+  } catch (_error) {
+    e = _error;
+  }
+};
 
 util = {
   last: function(array, n) {
@@ -1668,7 +1677,7 @@ util = {
     }
     return window.devicePixelRatio;
   },
-  requestAnimationFrame: (window.requestAnimationFrame || window.setTimeout).bind(window),
+  requestAnimationFrame: requestAnimationFrame(),
   getGUID: (function() {
     var s4;
     s4 = function() {
